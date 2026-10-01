@@ -1,0 +1,289 @@
+{
+  "$schema": "https://github.com/relux-works/curator-playbook/schema/playbook-v1.schema.json",
+  "schema_version": 1,
+  "extends": "motion-video",
+  "root": "production-lead",
+  "description": "DRAFT labelled concept project. No paid generation is required. Pattern principals are placeholders resolved against a real pre-run roster. policy.delegation only permits a grant; the owner must confirm a grant before leaving. Machine capacity lives only in private runtimes.toml. Model needs come from the template roles; the operator's private file binds models. As shipped, policy.signatures requires CM2; it cannot run on PC1.",
+  "params": {
+    "critic_rounds": 5,
+    "scene_rework": 5,
+    "warped_clip_regeneration": 3,
+    "builder_wip": 4,
+    "render_wip": 1
+  },
+  "people": {
+    "brief-owners": {
+      "principals": [
+        "op:*@motion-video"
+      ],
+      "description": "Placeholder group pattern; bind the real owner in the private project roster before running."
+    }
+  },
+  "entities": {
+    "film": {
+      "fields": {
+        "purpose": {
+          "type": "text",
+          "default": "Explain a fictional review workflow. Label every mock screen Concept."
+        },
+        "viewer": {
+          "type": "text",
+          "default": "A team deciding whether a workflow demo is clear."
+        },
+        "call_to_action": {
+          "type": "text",
+          "default": "Explore the concept"
+        },
+        "length_seconds": {
+          "type": "number",
+          "default": 30
+        },
+        "sizes": {
+          "type": "list",
+          "of": "string",
+          "default": [
+            "16-9",
+            "9-16"
+          ]
+        },
+        "brand": {
+          "type": "text",
+          "default": "Fictional concept; ink #102020, cream #F4F0E5, citron #D9EF71; use a licensed local font and a code-built mark."
+        },
+        "facts_file": {
+          "type": "string",
+          "default": "examples/facts.md"
+        },
+        "facts_sha256": {
+          "type": "string",
+          "default": "92d6d93ce4f5eebdcf48ca02b4937375f2005c1775b7806a0b5f858fb30a1476"
+        },
+        "assets": {
+          "type": "list",
+          "of": "string",
+          "default": []
+        },
+        "style_references": {
+          "type": "list",
+          "of": "string",
+          "default": []
+        },
+        "sections": {
+          "type": "list",
+          "of": "string",
+          "default": [
+            "opening",
+            "workflow",
+            "outcome",
+            "close"
+          ]
+        },
+        "compositions": {
+          "type": "list",
+          "of": "string",
+          "default": [
+            "c01",
+            "c02",
+            "c03",
+            "c04",
+            "c05",
+            "c06",
+            "c07",
+            "c08",
+            "c09",
+            "c10",
+            "c11",
+            "c12"
+          ]
+        },
+        "support_requests": {
+          "type": "list",
+          "of": "string",
+          "default": []
+        },
+        "audio_requests": {
+          "type": "list",
+          "of": "string",
+          "default": []
+        },
+        "references_declared_none": {
+          "type": "boolean",
+          "default": true,
+          "description": "This example supplies no videos. The lead verifies the empty input and child set, studies written kit motion notes and records references_ok before planning."
+        }
+      }
+    }
+  },
+  "policy": {
+    "enable": {
+      "tools": [
+        "motion.test-render",
+        "motion.frame-difference",
+        "motion.contact-sheets",
+        "motion.frozen-loudness",
+        "motion.contrast",
+        "motion.brand-colour",
+        "motion.determinism",
+        "motion.component-render",
+        "motion.full-render",
+        "motion.seams",
+        "motion.final-render",
+        "motion.music-only",
+        "motion.generation",
+        "motion.clip-prep",
+        "motion.audio-acquire",
+        "motion.audio-mix",
+        "motion.delivery-audit"
+      ],
+      "auto_spawn": true,
+      "skills": "audited",
+      "relaxations": false,
+      "standing_answers": false
+    },
+    "wip": {
+      "per_state": {
+        "film.test": "$render_wip"
+      }
+    },
+    "delegation": {
+      "allow": [
+        {
+          "acts": [
+            "approvals"
+          ],
+          "role": "brief-owner",
+          "states": [
+            "support-asset.queued",
+            "audio-license.queued"
+          ],
+          "to": [
+            "production-lead"
+          ],
+          "ceiling": [
+            {
+              "guard": "field",
+              "name": "cost",
+              "lte": 5
+            }
+          ],
+          "self_approval": true,
+          "description": "At most 5 USD per paid request. A separate pre-run confirmed grant sets a rolling 50 USD per P1D budget, scope and expiry. No paid call outside the grant."
+        },
+        {
+          "acts": [
+            "transitions"
+          ],
+          "states": [
+            "film.intake"
+          ],
+          "to": [
+            "production-lead"
+          ],
+          "description": "The brief owner may delegate the single pre-run intake advance to their own lead session for this film. No mid-run taste approval is added."
+        }
+      ],
+      "never": [
+        {
+          "acts": [
+            "relaxations"
+          ],
+          "to": [
+            "production-lead"
+          ],
+          "description": "Do not relax required model capabilities while the brief owner is away."
+        }
+      ]
+    },
+    "signatures": {
+      "require_for": [
+        "approvals",
+        "spending",
+        "delegations"
+      ],
+      "min_assurance": "hardware-bound",
+      "user_verified": "required"
+    },
+    "data": {
+      "billing": [
+        "subscription",
+        "local"
+      ]
+    },
+    "confirmers": "brief-owners"
+  },
+  "x-away-mode": {
+    "status": "Pre-run grant recipe, not an active grant. No grant can be written by this package.",
+    "delegate": "production-lead",
+    "acts": [
+      "approvals"
+    ],
+    "role": "brief-owner",
+    "scope": "film subtree",
+    "expires": "P1D",
+    "where": [
+      {
+        "guard": "field",
+        "name": "cost",
+        "lte": 5
+      }
+    ],
+    "budget": [
+      {
+        "sum": "cost",
+        "max": 50,
+        "per": "P1D"
+      }
+    ],
+    "note": "Grant must bind the actual grantor and allowed sessions. No silence-based approval. No taste approvals between steps. Over budget: remove optional paid work only if the brief still holds, otherwise not-shipped.",
+    "intake_grant": {
+      "status": "A second actual pre-run grant is required. This object does not grant authority.",
+      "to": "production-lead",
+      "acts": [
+        "transitions"
+      ],
+      "scope": "one film intake",
+      "expires": "P1D",
+      "note": "Only the grantor own lead sessions unless exact additional session principals are confirmed. It does not grant spending, process changes or later human decisions."
+    }
+  },
+  "x-machine-limits": {
+    "status": "Private runtimes.toml setup checklist; ignored here.",
+    "parallel_runs": 4,
+    "concurrent_check_sets": 1,
+    "resources": {
+      "render": 1,
+      "analysis": 1
+    },
+    "note": "No machine identifiers or runtime bindings belong in this public example."
+  },
+  "x-pc3": {
+    "quality_params": {
+      "gap": 4,
+      "frozen_s_per_30_s": 1.0,
+      "max_still_s": 0.5,
+      "frame_diff_threshold": 0.35,
+      "contrast_min": 4.5,
+      "brand_rgb_tolerance": 3,
+      "target_lufs": -16,
+      "lufs_tolerance": 1,
+      "true_peak_max_dbfs": -1,
+      "sfx_peak_over_music_max_db": 0,
+      "in_band_lift_target_db": 3.5,
+      "high_band_lift_max_db": 4,
+      "fps": 60,
+      "landscape_width": 1920,
+      "landscape_height": 1080,
+      "portrait_width": 1080,
+      "portrait_height": 1920,
+      "loudness_style": "calm",
+      "punchy_target_lufs": -14,
+      "frame_diff_basis": {
+        "fps": 10,
+        "width": 320,
+        "metric": "YAVG of tblend difference",
+        "use": "Diagnostic only; frame_diff_threshold=0.35 must not be reused for adjacent native 60 fps frames."
+      },
+      "native_frame_diff_threshold": null
+    }
+  }
+}

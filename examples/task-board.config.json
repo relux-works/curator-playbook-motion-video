@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "motion-test": {
+      "where": "local",
+      "commands": [
+        "motion-test-render"
+      ]
+    },
+    "motion-frozen": {
+      "where": "local",
+      "commands": [
+        "motion-frozen-loudness"
+      ]
+    },
+    "motion-contrast": {
+      "where": "local",
+      "commands": [
+        "motion-contrast"
+      ]
+    },
+    "motion-brand": {
+      "where": "local",
+      "commands": [
+        "motion-brand-colour"
+      ]
+    },
+    "motion-audio": {
+      "where": "local",
+      "commands": [
+        "motion-frozen-loudness"
+      ]
+    },
+    "motion-determinism": {
+      "where": "local",
+      "commands": [
+        "motion-determinism"
+      ]
+    },
+    "motion-seams": {
+      "where": "local",
+      "commands": [
+        "motion-seams"
+      ]
+    },
+    "motion-exports": {
+      "where": "local",
+      "commands": [
+        "motion-audit-delivery"
+      ]
+    }
+  },
+  "x-draft": "Named §6.12 check-set design only. No guard names these sets: delivery.checks-passed would pass an inline film without evidence. Tool states enforce the draft pipeline; generic content-bound artifact sets remain gap 7. Commands match future tool bindings; no providers are installed."
+}

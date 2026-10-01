@@ -1,0 +1,30 @@
+Original skill (prompt and kit) by @everestchris6 (GitHub: echris6).
+https://github.com/echris6/motion-video-kit
+Copyright (c) 2026 echris6
+
+The vendored kit and material copied or closely adapted from that kit retain the MIT License.
+The prompt's licence is not stated upstream; it is reproduced with attribution and treated as MIT for caution.
+This cautious treatment does not establish the prompt author's permission.
+The full permission and warranty notice follows and travels with this package.
+
+MIT License
+
+Copyright (c) 2026 echris6
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

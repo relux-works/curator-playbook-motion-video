@@ -1,0 +1,4231 @@
+{
+  "$schema": "https://github.com/relux-works/curator-playbook/schema/playbook-v1.schema.json",
+  "schema_version": 1,
+  "name": "motion-video",
+  "description": "DRAFT v4.8 package. A code-built commercial with test first, reference study, storyboard critic, shared pieces, parallel section builders, independent component and full-film review, measured exports and away-mode spending. PC1 and PC3 prerequisites remain missing; x-pc3 is proposal data, not executable configuration.",
+  "params": {
+    "critic_rounds": {
+      "type": "limit",
+      "default": 5,
+      "description": "Full-film return passes counted by rework to assembling. Away-mode default 5 returns; none is the prompt-faithful unbounded setting. No exhaustion may produce a ship verdict."
+    },
+    "storyboard_rework": {
+      "type": "limit",
+      "default": 3,
+      "description": "Storyboard returns before build."
+    },
+    "scene_rework": {
+      "type": "limit",
+      "default": 5,
+      "description": "Combined scene return passes, counted by the single rework to build edge."
+    },
+    "audio_rework": {
+      "type": "limit",
+      "default": 5,
+      "description": "Audio rework rounds."
+    },
+    "warped_clip_regeneration": {
+      "type": "limit",
+      "default": 3,
+      "description": "Regeneration returns after warped support footage."
+    },
+    "tool_retries": {
+      "type": "limit",
+      "default": 2,
+      "description": "Tool errors before not-shipped."
+    },
+    "export_rework": {
+      "type": "limit",
+      "default": 2,
+      "description": "Final-size return passes via rework to queued, after fresh full-film acceptance. All tool and critic failures share this counter."
+    },
+    "builder_wip": {
+      "type": "count",
+      "default": 4,
+      "description": "Parallel section elements."
+    },
+    "render_wip": {
+      "type": "count",
+      "default": 1,
+      "description": "All render elements assigned to the common full-render role; per-state limits are only a process approximation."
+    },
+    "review_deadline": {
+      "type": "duration",
+      "default": "PT3H",
+      "description": "Away-mode maximum stay in a critic-owned review or verify state, including selection refusal. Kernel timer ends not-shipped/unverified without inventing a verdict."
+    }
+  },
+  "root": "production-lead",
+  "roles": {
+    "production-lead": {
+      "skill": "motion-orchestrator",
+      "capability": "orchestrator",
+      "description": "Root orchestrator. Routes work, creates immutable round records, writes authority-bearing routing fields from actual outcomes."
+    },
+    "reference-analyst": {
+      "skill": "motion-reference-analyst",
+      "capability": "analyst",
+      "needs": {
+        "require": {
+          "capabilities": [
+            "vision",
+            "tool-use"
+          ]
+        },
+        "on_unmet": "block"
+      }
+    },
+    "storyboarder": {
+      "skill": "motion-storyboarder",
+      "capability": "producer",
+      "needs": {
+        "require": {
+          "capabilities": [
+            "vision"
+          ],
+          "reasoning": true
+        },
+        "on_unmet": "block"
+      }
+    },
+    "scene-builder": {
+      "skill": "motion-scene-builder",
+      "capability": "producer",
+      "needs": {
+        "require": {
+          "capabilities": [
+            "vision",
+            "tool-use"
+          ],
+          "reasoning": true
+        },
+        "on_unmet": "block"
+      },
+      "description": "One code-capable run per section, with one lab per composition. Three.js is a required builder skill when the storyboard uses physical or spatial explanation; no separate owner is needed."
+    },
+    "audio-designer": {
+      "skill": "motion-audio-designer",
+      "capability": "producer",
+      "needs": {
+        "require": {
+          "capabilities": [
+            "tool-use"
+          ]
+        },
+        "prefer": {
+          "capabilities": [
+            "audio-input"
+          ]
+        },
+        "on_unmet": "block"
+      }
+    },
+    "critic": {
+      "skill": "motion-critic",
+      "capability": "reviewer",
+      "needs": {
+        "require": {
+          "capabilities": [
+            "vision",
+            "tool-use"
+          ],
+          "reasoning": true
+        },
+        "prefer": {
+          "capabilities": [
+            "video-input",
+            "audio-input"
+          ],
+          "not_same_publisher_as": "scene-builder"
+        },
+        "on_unmet": "block"
+      },
+      "description": "A new critic per round. Round packet: candidate without kernel measurement reports, brief with facts, references. Round 2 onward also includes the previous critic report only. No builder claims or production history. Enforcement is gap 6."
+    },
+    "brief-owner": {
+      "kind": "human",
+      "who": "brief-owners",
+      "capability": "approver",
+      "description": "Supplies the brief before departure and receives the files. No mid-run taste gate. Spending approvals may be delegated only under a real confirmed grant."
+    },
+    "test-render": {
+      "kind": "tool",
+      "tool": "motion.test-render",
+      "capability": "checker"
+    },
+    "frame-difference": {
+      "kind": "tool",
+      "tool": "motion.frame-difference",
+      "capability": "checker"
+    },
+    "contact-sheets": {
+      "kind": "tool",
+      "tool": "motion.contact-sheets",
+      "capability": "checker"
+    },
+    "frozen-loudness": {
+      "kind": "tool",
+      "tool": "motion.frozen-loudness",
+      "capability": "checker"
+    },
+    "contrast": {
+      "kind": "tool",
+      "tool": "motion.contrast",
+      "capability": "checker"
+    },
+    "brand-colour": {
+      "kind": "tool",
+      "tool": "motion.brand-colour",
+      "capability": "checker"
+    },
+    "determinism": {
+      "kind": "tool",
+      "tool": "motion.determinism",
+      "capability": "checker"
+    },
+    "component-render": {
+      "kind": "tool",
+      "tool": "motion.component-render",
+      "capability": "checker"
+    },
+    "full-render": {
+      "kind": "tool",
+      "tool": "motion.full-render",
+      "capability": "checker"
+    },
+    "seams": {
+      "kind": "tool",
+      "tool": "motion.seams",
+      "capability": "checker"
+    },
+    "final-render": {
+      "kind": "tool",
+      "tool": "motion.final-render",
+      "capability": "checker"
+    },
+    "music-only": {
+      "kind": "tool",
+      "tool": "motion.music-only",
+      "capability": "checker"
+    },
+    "generation": {
+      "kind": "tool",
+      "tool": "motion.generation",
+      "capability": "checker"
+    },
+    "clip-prep": {
+      "kind": "tool",
+      "tool": "motion.clip-prep",
+      "capability": "checker"
+    },
+    "audio-acquire": {
+      "kind": "tool",
+      "tool": "motion.audio-acquire",
+      "capability": "checker"
+    },
+    "audio-mix": {
+      "kind": "tool",
+      "tool": "motion.audio-mix",
+      "capability": "checker"
+    },
+    "delivery-audit": {
+      "kind": "tool",
+      "tool": "motion.delivery-audit",
+      "capability": "checker"
+    }
+  },
+  "tools": {
+    "motion.test-render": {
+      "skill": "motion-tools",
+      "command": "motion-test-render",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Render and decode a five-second 1080p60 test from pinned local HTML/GSAP dependencies before production. The kit offers renderer examples, not a renderer implementation."
+    },
+    "motion.frame-difference": {
+      "skill": "motion-tools",
+      "command": "motion-frame-difference",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Decode every frame; compute adjacent change, brightness and edge detail. Report cuts and fast moments."
+    },
+    "motion.contact-sheets": {
+      "skill": "motion-tools",
+      "command": "motion-contact-sheets",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Reference overview plus one-second transition windows at 16–20 fps. Critic sheets every 0.2 seconds plus dense transition frames. Paginate; never silently truncate at one tile."
+    },
+    "motion.frozen-loudness": {
+      "skill": "motion-tools",
+      "command": "motion-frozen-loudness",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Report frozen total and maximum run at native fps; ebur128 integrated, short-term, LRA and true peak; effect/music comparisons from decoded stems. The upstream frozen script is only a 10 fps diagnostic."
+    },
+    "motion.contrast": {
+      "skill": "motion-tools",
+      "command": "motion-contrast",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Check rendered text contrast and collisions including moving text; include per-frame coverage and unknown cases. Never infer a full visual pass from incomplete geometry."
+    },
+    "motion.brand-colour": {
+      "skill": "motion-tools",
+      "command": "motion-brand-colour",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Sample declared background regions after capture and encode; compare against brand tokens. 3D scenes may not bypass this step."
+    },
+    "motion.determinism": {
+      "skill": "motion-tools",
+      "command": "motion-determinism",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Render identical times twice in different seek orders with fixed seed, pinned fonts, toolchain and GPU backend. Compare decoded pixels exactly."
+    },
+    "motion.component-render": {
+      "skill": "motion-tools",
+      "command": "motion-component-render",
+      "timeout": "PT3H",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Render an isolated HTML component lab to stills and a 3–4 second motion proof at 60 fps."
+    },
+    "motion.full-render": {
+      "skill": "motion-tools",
+      "command": "motion-full-render",
+      "timeout": "PT3H",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Render the whole root GSAP timeline frame by frame, then encode preview with the current audio mix."
+    },
+    "motion.seams": {
+      "skill": "motion-tools",
+      "command": "motion-seams",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Check carried-object identity, exact pixel rectangles and direction at every composition handoff, in every size."
+    },
+    "motion.final-render": {
+      "skill": "motion-tools",
+      "command": "motion-final-render",
+      "timeout": "PT3H",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Render one requested size at 1080p and 60 fps. Require a complete frame set, audio and matching duration."
+    },
+    "motion.music-only": {
+      "skill": "motion-tools",
+      "command": "motion-music-only",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Export the same picture with music and no effects, in every requested size. Retain a separate music-only stem for measurement."
+    },
+    "motion.generation": {
+      "skill": "motion-tools",
+      "command": "motion-generate-support",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Optional support image or clip generation; metered, labelled concept, idempotency key and receipt needed."
+    },
+    "motion.clip-prep": {
+      "skill": "motion-tools",
+      "command": "motion-prepare-clip",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Upscale and interpolate a generated clip; report source/native detail honestly. Do not hide geometric warps."
+    },
+    "motion.audio-acquire": {
+      "skill": "motion-tools",
+      "command": "motion-acquire-audio",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Acquire licensed music or SFX under spending approval. Return license and attribution evidence."
+    },
+    "motion.audio-mix": {
+      "skill": "motion-tools",
+      "command": "motion-mix-audio",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Render decoded music and effects stems plus the final mix and beat alignment report; film-specific timings must be supplied."
+    },
+    "motion.delivery-audit": {
+      "skill": "motion-tools",
+      "command": "motion-audit-delivery",
+      "timeout": "PT20M",
+      "description": "DRAFT provider contract, not installed or implemented by this package. Validate final exports in every size, frames, fps, audio, final contact sheets, poster, editable source, ledgers, measured results and human-check note."
+    }
+  },
+  "entities": {
+    "film": {
+      "workflow": "film",
+      "root": true,
+      "fields": {
+        "purpose": {
+          "type": "text",
+          "required": true
+        },
+        "viewer": {
+          "type": "text",
+          "required": true
+        },
+        "call_to_action": {
+          "type": "text",
+          "required": true
+        },
+        "length_seconds": {
+          "type": "number",
+          "required": true
+        },
+        "sizes": {
+          "type": "list",
+          "of": "string",
+          "required": true
+        },
+        "brand": {
+          "type": "text",
+          "required": true
+        },
+        "facts_file": {
+          "type": "string",
+          "required": true,
+          "description": "Portable input path. PC3 proposed file field and pinned digest live in x-pc3; this string does not bind content."
+        },
+        "facts_sha256": {
+          "type": "string",
+          "required": true
+        },
+        "assets": {
+          "type": "list",
+          "of": "string",
+          "default": []
+        },
+        "style_references": {
+          "type": "list",
+          "of": "string",
+          "default": []
+        },
+        "sections": {
+          "type": "list",
+          "of": "string"
+        },
+        "compositions": {
+          "type": "list",
+          "of": "string"
+        },
+        "support_requests": {
+          "type": "list",
+          "of": "string",
+          "default": []
+        },
+        "audio_requests": {
+          "type": "list",
+          "of": "string",
+          "default": []
+        },
+        "references_ok": {
+          "type": "boolean",
+          "default": false
+        },
+        "storyboard_ok": {
+          "type": "boolean",
+          "default": false
+        },
+        "shared_ok": {
+          "type": "boolean",
+          "default": false
+        },
+        "components_ok": {
+          "type": "boolean",
+          "default": false
+        },
+        "exports_ok": {
+          "type": "boolean",
+          "default": false
+        },
+        "source_bundle": {
+          "type": "string"
+        },
+        "quality_report": {
+          "type": "string"
+        },
+        "human_check_note": {
+          "type": "string"
+        },
+        "ledger": {
+          "type": "string"
+        },
+        "exports_created": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned routing flag. Set only after the first size fan-out is created; later accepted full renders reuse all size elements."
+        },
+        "tool_unavailable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead records a required provider probe/entry refusal or missing result after the binding timeout. Clear after a valid probe; never fabricate tool events."
+        },
+        "references_declared_none": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead verifies that style_references is empty and no reference children exist before using the explicit kit-note path. Never set true to bypass supplied videos."
+        },
+        "sizes_declared": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned declaration. Set true only after sizes is explicitly supplied and contains at least one requested size."
+        },
+        "production_lists_declared": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned declaration. Set true only after sections and compositions are explicitly supplied, non-empty and match the accepted production plan."
+        }
+      },
+      "contains": [
+        "reference",
+        "storyboard",
+        "shared-kit",
+        "audio-piece",
+        "support-asset",
+        "audio-license",
+        "render-round",
+        "critic-round",
+        "deliverable",
+        "section"
+      ]
+    },
+    "reference": {
+      "workflow": "reference",
+      "parents": [
+        "film"
+      ],
+      "fields": {
+        "reference_id": {
+          "type": "string",
+          "required": true
+        },
+        "video": {
+          "type": "string"
+        },
+        "study": {
+          "type": "text"
+        },
+        "numeric_report": {
+          "type": "string"
+        },
+        "sheets": {
+          "type": "list",
+          "of": "string"
+        },
+        "sheets_declared": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned declaration. Set true only after sheets is filled from successful contact-sheet output and covers this supplied video; it must not be empty."
+        }
+      }
+    },
+    "storyboard": {
+      "workflow": "storyboard",
+      "parents": [
+        "film"
+      ],
+      "fields": {
+        "brief": {
+          "type": "text"
+        },
+        "table": {
+          "type": "string"
+        },
+        "signature_moments": {
+          "type": "list",
+          "of": "string"
+        },
+        "beat_grid": {
+          "type": "string"
+        },
+        "rough_frames": {
+          "type": "string"
+        },
+        "signature_moments_declared": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned declaration. Set true only after signature_moments contains the three required moments from the current storyboard outcome."
+        }
+      },
+      "contains": [
+        "critic-round"
+      ]
+    },
+    "shared-kit": {
+      "workflow": "shared-kit",
+      "parents": [
+        "film"
+      ],
+      "fields": {
+        "tokens": {
+          "type": "string"
+        },
+        "fonts": {
+          "type": "list",
+          "of": "string"
+        },
+        "models": {
+          "type": "list",
+          "of": "string"
+        },
+        "handoff_pixels": {
+          "type": "string"
+        },
+        "seed": {
+          "type": "integer",
+          "default": 1
+        },
+        "dependency_lock": {
+          "type": "string"
+        },
+        "shared_lists_declared": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned declaration. Set true only after fonts and models are explicitly filled and verified for the current film. Empty models means no 3D; empty fonts means no font assets are needed, not missing work."
+        }
+      }
+    },
+    "scene": {
+      "workflow": "scene",
+      "parents": [
+        "section"
+      ],
+      "fields": {
+        "test_page": {
+          "type": "string"
+        },
+        "proof": {
+          "type": "string"
+        },
+        "stills": {
+          "type": "list",
+          "of": "string"
+        },
+        "shared_input_digest": {
+          "type": "string"
+        },
+        "rendered_files": {
+          "type": "list",
+          "of": "string"
+        },
+        "composition_id": {
+          "type": "string",
+          "required": true
+        }
+      },
+      "contains": [
+        "render-round",
+        "critic-round"
+      ]
+    },
+    "audio-piece": {
+      "workflow": "audio-piece",
+      "parents": [
+        "film"
+      ],
+      "fields": {
+        "music": {
+          "type": "string"
+        },
+        "sfx_plan": {
+          "type": "string"
+        },
+        "music_only": {
+          "type": "string"
+        },
+        "mix": {
+          "type": "string"
+        },
+        "beat_grid": {
+          "type": "string"
+        },
+        "licenses": {
+          "type": "list",
+          "of": "string"
+        },
+        "audio_report": {
+          "type": "string"
+        },
+        "licenses_declared": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned declaration. Set true only after licenses is explicitly filled and cleared for the current audio inputs. An empty list means no licensed audio is used, not missing provenance."
+        }
+      },
+      "contains": [
+        "critic-round"
+      ]
+    },
+    "support-asset": {
+      "workflow": "support-asset",
+      "parents": [
+        "film"
+      ],
+      "fields": {
+        "request_id": {
+          "type": "string",
+          "required": true
+        },
+        "kind": {
+          "type": "enum",
+          "values": [
+            "image",
+            "clip"
+          ]
+        },
+        "prompt": {
+          "type": "text"
+        },
+        "seed": {
+          "type": "integer"
+        },
+        "concept_label": {
+          "type": "string"
+        },
+        "artifact": {
+          "type": "string"
+        },
+        "generation_ledger": {
+          "type": "string"
+        },
+        "cost": {
+          "type": "money",
+          "currency": "USD",
+          "required": true
+        },
+        "warped": {
+          "type": "boolean",
+          "default": false
+        },
+        "tool_unavailable": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "contains": [
+        "critic-round"
+      ]
+    },
+    "audio-license": {
+      "workflow": "audio-license",
+      "parents": [
+        "film"
+      ],
+      "fields": {
+        "request_id": {
+          "type": "string",
+          "required": true
+        },
+        "kind": {
+          "type": "enum",
+          "values": [
+            "music",
+            "sfx"
+          ]
+        },
+        "license": {
+          "type": "string"
+        },
+        "attribution": {
+          "type": "text"
+        },
+        "artifact": {
+          "type": "string"
+        },
+        "cost": {
+          "type": "money",
+          "currency": "USD",
+          "required": true
+        },
+        "tool_unavailable": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "contains": [
+        "critic-round"
+      ]
+    },
+    "render-round": {
+      "workflow": "render-round",
+      "parents": [
+        "film",
+        "scene"
+      ],
+      "fields": {
+        "stage": {
+          "type": "enum",
+          "values": [
+            "component",
+            "full"
+          ]
+        },
+        "round_index": {
+          "type": "integer"
+        },
+        "artifact": {
+          "type": "string"
+        },
+        "artifact_sha256": {
+          "type": "string"
+        },
+        "measurements": {
+          "type": "string"
+        },
+        "coverage": {
+          "type": "text"
+        },
+        "provider_identity": {
+          "type": "string"
+        },
+        "toolchain": {
+          "type": "text"
+        },
+        "frozen_before_s": {
+          "type": "number"
+        },
+        "frozen_after_s": {
+          "type": "number"
+        },
+        "max_still_before_s": {
+          "type": "number"
+        },
+        "max_still_after_s": {
+          "type": "number"
+        },
+        "contrast_before": {
+          "type": "number"
+        },
+        "contrast_after": {
+          "type": "number"
+        },
+        "lufs_before": {
+          "type": "number"
+        },
+        "lufs_after": {
+          "type": "number"
+        },
+        "peak_before_dbfs": {
+          "type": "number"
+        },
+        "peak_after_dbfs": {
+          "type": "number"
+        },
+        "brand_delta_before": {
+          "type": "number"
+        },
+        "brand_delta_after": {
+          "type": "number"
+        },
+        "effects_peak_over_music_db": {
+          "type": "number"
+        },
+        "artifact_status": {
+          "type": "enum",
+          "values": [
+            "captured",
+            "not-produced"
+          ]
+        }
+      }
+    },
+    "critic-round": {
+      "workflow": "critic-record",
+      "parents": [
+        "film",
+        "storyboard",
+        "scene",
+        "audio-piece",
+        "support-asset",
+        "audio-license",
+        "deliverable"
+      ],
+      "fields": {
+        "stage": {
+          "type": "enum",
+          "values": [
+            "storyboard",
+            "component",
+            "audio",
+            "full",
+            "final",
+            "asset",
+            "license"
+          ]
+        },
+        "round_index": {
+          "type": "integer"
+        },
+        "critic_run": {
+          "type": "string"
+        },
+        "artifact_sha256": {
+          "type": "string"
+        },
+        "brief_sha256": {
+          "type": "string"
+        },
+        "reference_digests": {
+          "type": "list",
+          "of": "string"
+        },
+        "found": {
+          "type": "list",
+          "of": "string"
+        },
+        "changed": {
+          "type": "list",
+          "of": "string"
+        },
+        "timestamps": {
+          "type": "list",
+          "of": "number"
+        },
+        "prior_status": {
+          "type": "list",
+          "of": "string"
+        },
+        "report": {
+          "type": "string"
+        },
+        "judgement": {
+          "type": "enum",
+          "values": [
+            "ship",
+            "one-more-pass",
+            "reject"
+          ]
+        },
+        "sound_off_assessment": {
+          "type": "text"
+        },
+        "reference_comparison": {
+          "type": "text"
+        },
+        "unverified": {
+          "type": "list",
+          "of": "string"
+        },
+        "frozen_before_s": {
+          "type": "number"
+        },
+        "frozen_after_s": {
+          "type": "number"
+        },
+        "max_still_before_s": {
+          "type": "number"
+        },
+        "max_still_after_s": {
+          "type": "number"
+        },
+        "contrast_before": {
+          "type": "number"
+        },
+        "contrast_after": {
+          "type": "number"
+        },
+        "lufs_before": {
+          "type": "number"
+        },
+        "lufs_after": {
+          "type": "number"
+        },
+        "peak_before_dbfs": {
+          "type": "number"
+        },
+        "peak_after_dbfs": {
+          "type": "number"
+        },
+        "brand_delta_before": {
+          "type": "number"
+        },
+        "brand_delta_after": {
+          "type": "number"
+        },
+        "effects_peak_over_music_db": {
+          "type": "number"
+        },
+        "kernel_comparison": {
+          "type": "string",
+          "description": "Lead-owned post-review comparison report: independent critic numbers, kernel numbers, bases, coverage and discrepancies for this digest/size. Never part of a critic packet or the previous critic report."
+        },
+        "lists_declared": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned declaration. Set true only after all critic-round lists are explicitly filled from actual outcomes, including empty lists. Round 1 has empty prior_status and changed; no findings or unverified items are represented by empty lists."
+        }
+      }
+    },
+    "deliverable": {
+      "workflow": "deliverable",
+      "parents": [
+        "film"
+      ],
+      "fields": {
+        "size": {
+          "type": "string",
+          "required": true
+        },
+        "master": {
+          "type": "string"
+        },
+        "music_only": {
+          "type": "string"
+        },
+        "final_sheets": {
+          "type": "list",
+          "of": "string"
+        },
+        "poster": {
+          "type": "string"
+        },
+        "audit": {
+          "type": "string"
+        },
+        "accepted_render_digest": {
+          "type": "string"
+        },
+        "measurements": {
+          "type": "string",
+          "description": "Evidence bundle from this size’s metrics, contrast, colour and determinism checks, bound to the decoded candidate digest; not full-film reports."
+        },
+        "final_sheets_declared": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned declaration. Set true only after final_sheets is filled from successful contact-sheet output and covers the current decoded final size; it must not be empty."
+        }
+      },
+      "contains": [
+        "critic-round"
+      ]
+    },
+    "section": {
+      "parents": [
+        "film"
+      ],
+      "contains": [
+        "scene"
+      ],
+      "workflow": "section",
+      "fields": {
+        "section_id": {
+          "type": "string",
+          "required": true
+        },
+        "compositions": {
+          "type": "list",
+          "of": "string",
+          "required": true
+        },
+        "components_ok": {
+          "type": "boolean",
+          "default": false
+        },
+        "shared_input_digest": {
+          "type": "string"
+        },
+        "report": {
+          "type": "string"
+        },
+        "compositions_declared": {
+          "type": "boolean",
+          "default": false,
+          "description": "Lead-owned declaration. Set true only after compositions is explicitly supplied, non-empty and matches this section assignment."
+        }
+      },
+      "description": "One builder assignment per section; compositions are individual scenes. Driving descendant board elements from that run is an unresolved write-scope contract, gap 11 (§6.16)."
+    }
+  },
+  "workflows": {
+    "film": {
+      "initial": "intake",
+      "states": {
+        "intake": {
+          "owner": "brief-owner",
+          "description": "Pre-run supplied inputs. The owner delegates this named intake transition before departure. This is not a mid-run creative approval gate."
+        },
+        "test-setup": {
+          "owner": "production-lead"
+        },
+        "studying": {
+          "owner": "production-lead"
+        },
+        "planning": {
+          "owner": "production-lead"
+        },
+        "shared": {
+          "owner": "production-lead"
+        },
+        "building": {
+          "owner": "production-lead"
+        },
+        "assembling": {
+          "owner": "production-lead"
+        },
+        "rework": {
+          "owner": "production-lead",
+          "clear_on_exit": [
+            "components_ok"
+          ]
+        },
+        "packaging": {
+          "owner": "production-lead"
+        },
+        "reporting": {
+          "owner": "production-lead"
+        },
+        "test": {
+          "owner": "test-render"
+        },
+        "seams": {
+          "owner": "seams",
+          "clear_on_exit": [
+            "components_ok"
+          ]
+        },
+        "rendering": {
+          "owner": "full-render"
+        },
+        "review": {
+          "owner": "critic",
+          "description": "New critic for this full render. Candidate, brief and references only; verification adds only the previous critic report. Independently measure without kernel reports. Lead compares numbers afterwards in the ledger. Gap 6."
+        },
+        "delivered": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet",
+            "tool-unavailable",
+            "budget-unavailable",
+            "unverified"
+          ]
+        },
+        "difference": {
+          "owner": "frame-difference"
+        },
+        "sheets": {
+          "owner": "contact-sheets"
+        },
+        "metrics": {
+          "owner": "frozen-loudness"
+        },
+        "contrast": {
+          "owner": "contrast"
+        },
+        "colour": {
+          "owner": "brand-colour"
+        },
+        "determinism": {
+          "owner": "determinism"
+        },
+        "stopped": {
+          "terminal": true,
+          "resolution": [
+            "unverified"
+          ]
+        },
+        "export-setup": {
+          "owner": "production-lead",
+          "description": "First size fan-out only. After creation set exports_created true. Every later full-render pass reuses the same deliverable elements."
+        },
+        "tool-abort": {
+          "owner": "production-lead",
+          "description": "A required packaging provider is unavailable. Record the refusal and finish with a notice; separate state avoids duplicate transition keys."
+        },
+        "no-references": {
+          "owner": "production-lead",
+          "description": "Explicit no-video path, with written kit benchmarks recorded by the lead. No children.terminal guard is evaluated on an empty reference set."
+        }
+      },
+      "transitions": [
+        {
+          "from": "intake",
+          "to": "test-setup",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "purpose",
+                "viewer",
+                "call_to_action",
+                "length_seconds",
+                "brand",
+                "facts_file",
+                "facts_sha256"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "sizes_declared",
+              "is": true
+            }
+          ]
+        },
+        {
+          "from": "test-setup",
+          "to": "test",
+          "guards": [
+            "outcome.present"
+          ]
+        },
+        {
+          "from": "test",
+          "to": "studying",
+          "actions": [
+            {
+              "action": "create",
+              "type": "reference",
+              "per": "style_references",
+              "fields": {
+                "reference_id": "$item"
+              }
+            }
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "test",
+          "to": "test-setup",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$tool_retries",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "studying",
+          "to": "planning",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "references_declared_none",
+              "is": false
+            },
+            {
+              "guard": "children.terminal",
+              "types": [
+                "reference"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "references_ok",
+              "is": true
+            }
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "storyboard"
+            }
+          ]
+        },
+        {
+          "from": "planning",
+          "to": "shared",
+          "guards": [
+            {
+              "guard": "children.terminal",
+              "types": [
+                "storyboard"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "storyboard_ok",
+              "is": true
+            }
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "shared-kit"
+            }
+          ]
+        },
+        {
+          "from": "shared",
+          "to": "building",
+          "guards": [
+            {
+              "guard": "children.terminal",
+              "types": [
+                "shared-kit"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "shared_ok",
+              "is": true
+            },
+            {
+              "guard": "field",
+              "name": "production_lists_declared",
+              "is": true
+            }
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "section",
+              "per": "sections",
+              "fields": {
+                "section_id": "$item"
+              }
+            },
+            {
+              "action": "create",
+              "type": "audio-piece"
+            },
+            {
+              "action": "create",
+              "type": "support-asset",
+              "per": "support_requests",
+              "fields": {
+                "request_id": "$item"
+              }
+            },
+            {
+              "action": "create",
+              "type": "audio-license",
+              "per": "audio_requests",
+              "fields": {
+                "request_id": "$item"
+              }
+            }
+          ]
+        },
+        {
+          "from": "building",
+          "to": "seams",
+          "guards": [
+            {
+              "guard": "children.terminal",
+              "types": [
+                "section",
+                "audio-piece",
+                "support-asset",
+                "audio-license"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "components_ok",
+              "is": true
+            }
+          ]
+        },
+        {
+          "from": "seams",
+          "to": "assembling",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "seams",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "assembling",
+          "to": "rendering",
+          "guards": [
+            "outcome.present"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "render-round",
+              "fields": {
+                "stage": "full"
+              }
+            }
+          ]
+        },
+        {
+          "from": "rendering",
+          "to": "difference",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "rendering",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "difference",
+          "to": "sheets",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "difference",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "sheets",
+          "to": "metrics",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "sheets",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "metrics",
+          "to": "contrast",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "metrics",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "contrast",
+          "to": "colour",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "contrast",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "colour",
+          "to": "determinism",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "colour",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "determinism",
+          "to": "review",
+          "actions": [
+            {
+              "action": "create",
+              "type": "critic-round",
+              "fields": {
+                "stage": "full"
+              }
+            },
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "determinism",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "export-setup",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "accepted"
+            },
+            {
+              "guard": "children.terminal",
+              "types": [
+                "render-round",
+                "critic-round"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "exports_created",
+              "is": false
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "rework",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "changes_requested"
+            }
+          ],
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "stopped",
+          "resolution": "unverified",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "stop_the_line"
+            }
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "rejected"
+            }
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "rework",
+          "to": "assembling",
+          "description": "Fix the largest finding first. Reopen affected scenes through their declared transition and wait for fresh acceptance; never absorb an unreviewed component.",
+          "guards": [
+            "outcome.present",
+            {
+              "guard": "children.terminal",
+              "types": [
+                "section",
+                "audio-piece"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "components_ok",
+              "is": true
+            }
+          ],
+          "limit": {
+            "max": "$critic_rounds",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "packaging",
+          "to": "reporting",
+          "guards": [
+            {
+              "guard": "children.terminal",
+              "types": [
+                "deliverable"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "exports_ok",
+              "is": true
+            }
+          ]
+        },
+        {
+          "from": "reporting",
+          "to": "delivered",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "source_bundle",
+                "quality_report",
+                "human_check_note",
+                "ledger"
+              ]
+            },
+            "children.terminal",
+            "outcome.present",
+            {
+              "guard": "field",
+              "name": "exports_ok",
+              "is": true
+            }
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "studying",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "description": "A production child has a failure terminal state. The kernel sees that failure; the lead keeps the success flag false (gap 10). Historical render-round.failed records describe recoverable invocations and are not production-child failures.",
+          "guards": [
+            {
+              "guard": "children.any-in",
+              "states": [
+                "not-shipped",
+                "stopped"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "planning",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "description": "A production child has a failure terminal state. The kernel sees that failure; the lead keeps the success flag false (gap 10). Historical render-round.failed records describe recoverable invocations and are not production-child failures.",
+          "guards": [
+            {
+              "guard": "children.any-in",
+              "states": [
+                "not-shipped",
+                "stopped"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "shared",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "description": "A production child has a failure terminal state. The kernel sees that failure; the lead keeps the success flag false (gap 10). Historical render-round.failed records describe recoverable invocations and are not production-child failures.",
+          "guards": [
+            {
+              "guard": "children.any-in",
+              "states": [
+                "not-shipped",
+                "stopped"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "building",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "description": "A production child has a failure terminal state. The kernel sees that failure; the lead keeps the success flag false (gap 10). Historical render-round.failed records describe recoverable invocations and are not production-child failures.",
+          "guards": [
+            {
+              "guard": "children.any-in",
+              "states": [
+                "not-shipped",
+                "stopped"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "packaging",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "description": "A production child has a failure terminal state. The kernel sees that failure; the lead keeps the success flag false (gap 10). Historical render-round.failed records describe recoverable invocations and are not production-child failures.",
+          "guards": [
+            {
+              "guard": "children.any-in",
+              "states": [
+                "not-shipped",
+                "stopped"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "rework",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "description": "A production child has a failure terminal state. The kernel sees that failure; the lead keeps the success flag false (gap 10). Historical render-round.failed records describe recoverable invocations and are not production-child failures.",
+          "guards": [
+            {
+              "guard": "children.any-in",
+              "states": [
+                "not-shipped",
+                "stopped"
+              ]
+            }
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "export-setup",
+          "to": "packaging",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "exports_created",
+              "is": false
+            }
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "deliverable",
+              "per": "sizes",
+              "fields": {
+                "size": "$item"
+              }
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "packaging",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "accepted"
+            },
+            {
+              "guard": "children.terminal",
+              "types": [
+                "render-round",
+                "critic-round"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "exports_created",
+              "is": true
+            }
+          ],
+          "description": "Reuse the size elements. Lead updates their source digest and requeues only after this accepted full-render verdict."
+        },
+        {
+          "from": "packaging",
+          "to": "rework",
+          "guards": [
+            {
+              "guard": "children.any-in",
+              "states": [
+                "rework"
+              ]
+            }
+          ],
+          "description": "A deliverable requires a source/layout fix. This parent guard is the supported cross-element return: no child transition writes the parent. Clear exports_ok, invalidate every size, reopen affected sections/scenes/audio, then use the existing bounded film rework return."
+        },
+        {
+          "from": "test-setup",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "assembling",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "tool_unavailable",
+              "is": true
+            },
+            "outcome.present"
+          ],
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "reporting",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "tool_unavailable",
+              "is": true
+            },
+            "outcome.present"
+          ],
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "packaging",
+          "to": "tool-abort",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "tool_unavailable",
+              "is": true
+            },
+            "outcome.present"
+          ],
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state."
+        },
+        {
+          "from": "export-setup",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "tool_unavailable",
+              "is": true
+            },
+            "outcome.present"
+          ],
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "test",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "seams",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "rendering",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT3H1M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "difference",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "sheets",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "metrics",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "contrast",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "colour",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "determinism",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "tool-abort",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "guards": [
+            "outcome.present"
+          ],
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        },
+        {
+          "from": "studying",
+          "to": "no-references",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "references_declared_none",
+              "is": true
+            },
+            {
+              "guard": "field",
+              "name": "references_ok",
+              "is": true
+            }
+          ],
+          "description": "Lead checks actual absence and records the written-kit study. This declared-absence route does not join zero reference children."
+        },
+        {
+          "from": "no-references",
+          "to": "planning",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "references_declared_none",
+              "is": true
+            },
+            {
+              "guard": "field",
+              "name": "references_ok",
+              "is": true
+            }
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "storyboard"
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "on": {
+            "after": "$review_deadline"
+          },
+          "resolution": "unverified",
+          "description": "Kernel deadline for unavailable or stalled critic selection/review. No fabricated verdict; tick must remain live.",
+          "actions": [
+            {
+              "action": "notify",
+              "to": "brief-owner"
+            }
+          ]
+        }
+      ]
+    },
+    "reference": {
+      "initial": "queued",
+      "states": {
+        "queued": {
+          "owner": "production-lead"
+        },
+        "difference": {
+          "owner": "frame-difference"
+        },
+        "sheets": {
+          "owner": "contact-sheets"
+        },
+        "studying": {
+          "owner": "reference-analyst"
+        },
+        "studied": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet",
+            "tool-unavailable",
+            "budget-unavailable",
+            "unverified"
+          ]
+        }
+      },
+      "transitions": [
+        {
+          "from": "queued",
+          "to": "difference",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "reference_id"
+              ]
+            }
+          ]
+        },
+        {
+          "from": "difference",
+          "to": "sheets",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "difference",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "sheets",
+          "to": "studying",
+          "actions": [
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "sheets",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "studying",
+          "to": "studied",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "study",
+                "numeric_report"
+              ]
+            },
+            "outcome.present",
+            {
+              "guard": "field",
+              "name": "sheets_declared",
+              "is": true
+            }
+          ]
+        },
+        {
+          "from": "queued",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state."
+        },
+        {
+          "from": "difference",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "sheets",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        }
+      ]
+    },
+    "storyboard": {
+      "initial": "draft",
+      "states": {
+        "draft": {
+          "owner": "storyboarder",
+          "clear_on_exit": [
+            "signature_moments_declared"
+          ]
+        },
+        "review": {
+          "owner": "critic"
+        },
+        "accepted": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet",
+            "tool-unavailable",
+            "budget-unavailable",
+            "unverified"
+          ]
+        },
+        "stopped": {
+          "terminal": true,
+          "resolution": [
+            "unverified"
+          ]
+        }
+      },
+      "transitions": [
+        {
+          "from": "draft",
+          "to": "review",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "brief",
+                "table",
+                "beat_grid",
+                "rough_frames"
+              ]
+            },
+            "outcome.present",
+            {
+              "guard": "field",
+              "name": "signature_moments_declared",
+              "is": true
+            }
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "critic-round",
+              "fields": {
+                "stage": "storyboard"
+              }
+            },
+            "spawn.owner"
+          ]
+        },
+        {
+          "from": "review",
+          "to": "accepted",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "accepted"
+            },
+            "children.terminal"
+          ]
+        },
+        {
+          "from": "review",
+          "to": "draft",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "changes_requested"
+            }
+          ],
+          "actions": [
+            "spawn.owner"
+          ],
+          "limit": {
+            "max": "$storyboard_rework",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "rejected"
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "stopped",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "stop_the_line"
+            }
+          ],
+          "resolution": "unverified"
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "on": {
+            "after": "$review_deadline"
+          },
+          "resolution": "unverified",
+          "description": "Kernel deadline for unavailable or stalled critic selection/review. No fabricated verdict; tick must remain live."
+        }
+      ]
+    },
+    "shared-kit": {
+      "initial": "writing",
+      "states": {
+        "writing": {
+          "owner": "production-lead"
+        },
+        "locked": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet",
+            "tool-unavailable",
+            "budget-unavailable",
+            "unverified"
+          ]
+        }
+      },
+      "transitions": [
+        {
+          "from": "writing",
+          "to": "locked",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "tokens",
+                "handoff_pixels",
+                "seed",
+                "dependency_lock"
+              ]
+            },
+            "outcome.present",
+            {
+              "guard": "field",
+              "name": "shared_lists_declared",
+              "is": true
+            }
+          ]
+        },
+        {
+          "from": "writing",
+          "to": "not-shipped",
+          "resolution": "unverified"
+        }
+      ]
+    },
+    "scene": {
+      "initial": "build",
+      "states": {
+        "build": {
+          "owner": "scene-builder",
+          "requires": [
+            "blockers.clear"
+          ],
+          "description": "Section builder produces this composition source. Descendant element authority remains gap 11; the root lead may route the agent-owned exit on actual builder evidence (§4.2)."
+        },
+        "rendering": {
+          "owner": "component-render"
+        },
+        "review": {
+          "owner": "critic"
+        },
+        "accepted": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet",
+            "tool-unavailable",
+            "budget-unavailable",
+            "unverified"
+          ]
+        },
+        "difference": {
+          "owner": "frame-difference"
+        },
+        "sheets": {
+          "owner": "contact-sheets"
+        },
+        "metrics": {
+          "owner": "frozen-loudness"
+        },
+        "contrast": {
+          "owner": "contrast"
+        },
+        "colour": {
+          "owner": "brand-colour"
+        },
+        "determinism": {
+          "owner": "determinism"
+        },
+        "stopped": {
+          "terminal": true,
+          "resolution": [
+            "unverified"
+          ]
+        },
+        "rework": {
+          "owner": "production-lead",
+          "description": "Collect machine or critic failure. The single return counter bounds all scene rework. Reopening keeps the existing per-element counter."
+        }
+      },
+      "transitions": [
+        {
+          "from": "build",
+          "to": "rendering",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "test_page",
+                "shared_input_digest"
+              ]
+            },
+            "outcome.present"
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "render-round",
+              "fields": {
+                "stage": "component"
+              }
+            }
+          ]
+        },
+        {
+          "from": "rendering",
+          "to": "difference",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "rendering",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "difference",
+          "to": "sheets",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "difference",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "sheets",
+          "to": "metrics",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "sheets",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "metrics",
+          "to": "contrast",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "metrics",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "contrast",
+          "to": "colour",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "contrast",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "colour",
+          "to": "determinism",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "colour",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "determinism",
+          "to": "review",
+          "actions": [
+            {
+              "action": "create",
+              "type": "critic-round",
+              "fields": {
+                "stage": "component"
+              }
+            },
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "determinism",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "review",
+          "to": "accepted",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "accepted"
+            },
+            "children.terminal"
+          ]
+        },
+        {
+          "from": "review",
+          "to": "rework",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "changes_requested"
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "rejected"
+            }
+          ]
+        },
+        {
+          "from": "accepted",
+          "to": "rework",
+          "reopen": true,
+          "description": "Rework a component that fails in context; fresh component acceptance before reassembly."
+        },
+        {
+          "from": "review",
+          "to": "stopped",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "stop_the_line"
+            }
+          ],
+          "resolution": "unverified"
+        },
+        {
+          "from": "rework",
+          "to": "build",
+          "guards": [
+            "outcome.present"
+          ],
+          "limit": {
+            "max": "$scene_rework",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "build",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state."
+        },
+        {
+          "from": "rework",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state."
+        },
+        {
+          "from": "rendering",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT3H1M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "difference",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "sheets",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "metrics",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "contrast",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "colour",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "determinism",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "on": {
+            "after": "$review_deadline"
+          },
+          "resolution": "unverified",
+          "description": "Kernel deadline for unavailable or stalled critic selection/review. No fabricated verdict; tick must remain live."
+        }
+      ]
+    },
+    "audio-piece": {
+      "initial": "design",
+      "states": {
+        "design": {
+          "owner": "audio-designer",
+          "clear_on_exit": [
+            "licenses_declared"
+          ]
+        },
+        "mixing": {
+          "owner": "audio-mix",
+          "requires": [
+            "blockers.clear"
+          ]
+        },
+        "measuring": {
+          "owner": "frozen-loudness"
+        },
+        "review": {
+          "owner": "critic"
+        },
+        "accepted": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet",
+            "tool-unavailable",
+            "budget-unavailable",
+            "unverified"
+          ]
+        },
+        "stopped": {
+          "terminal": true,
+          "resolution": [
+            "unverified"
+          ]
+        }
+      },
+      "transitions": [
+        {
+          "from": "design",
+          "to": "mixing",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "music",
+                "sfx_plan",
+                "beat_grid"
+              ]
+            },
+            "outcome.present",
+            {
+              "guard": "field",
+              "name": "licenses_declared",
+              "is": true
+            }
+          ]
+        },
+        {
+          "from": "mixing",
+          "to": "measuring",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "mixing",
+          "to": "design",
+          "actions": [
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$audio_rework",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "measuring",
+          "to": "review",
+          "actions": [
+            {
+              "action": "create",
+              "type": "critic-round",
+              "fields": {
+                "stage": "audio"
+              }
+            },
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "measuring",
+          "to": "design",
+          "actions": [
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$audio_rework",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "review",
+          "to": "accepted",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "accepted"
+            },
+            "children.terminal"
+          ]
+        },
+        {
+          "from": "review",
+          "to": "design",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "changes_requested"
+            }
+          ],
+          "actions": [
+            "spawn.owner"
+          ],
+          "limit": {
+            "max": "$audio_rework",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "resolution": "unverified",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "rejected"
+            }
+          ]
+        },
+        {
+          "from": "accepted",
+          "to": "design",
+          "reopen": true,
+          "actions": [
+            "spawn.owner"
+          ],
+          "limit": {
+            "max": "$audio_rework",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "review",
+          "to": "stopped",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "stop_the_line"
+            }
+          ],
+          "resolution": "unverified"
+        },
+        {
+          "from": "design",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state."
+        },
+        {
+          "from": "mixing",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "measuring",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "on": {
+            "after": "$review_deadline"
+          },
+          "resolution": "unverified",
+          "description": "Kernel deadline for unavailable or stalled critic selection/review. No fabricated verdict; tick must remain live."
+        }
+      ]
+    },
+    "support-asset": {
+      "initial": "queued",
+      "states": {
+        "queued": {
+          "owner": "production-lead"
+        },
+        "generating": {
+          "owner": "generation"
+        },
+        "preparing": {
+          "owner": "clip-prep"
+        },
+        "review": {
+          "owner": "critic"
+        },
+        "accepted": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet",
+            "tool-unavailable",
+            "budget-unavailable",
+            "unverified"
+          ]
+        },
+        "stopped": {
+          "terminal": true,
+          "resolution": [
+            "unverified"
+          ]
+        },
+        "unavailable": {
+          "owner": "production-lead",
+          "description": "Record a required provider refusal, then finish tool-unavailable without a tool-state override."
+        }
+      },
+      "transitions": [
+        {
+          "from": "queued",
+          "to": "generating",
+          "risk": "spending",
+          "guards": [
+            {
+              "guard": "approvals",
+              "role": "brief-owner",
+              "min": 1
+            },
+            {
+              "guard": "fields.present",
+              "fields": [
+                "cost"
+              ]
+            }
+          ]
+        },
+        {
+          "from": "generating",
+          "to": "preparing",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "kind",
+              "is": "clip"
+            }
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "generating",
+          "to": "review",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "kind",
+              "is": "image"
+            }
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "critic-round",
+              "fields": {
+                "stage": "asset"
+              }
+            },
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "generating",
+          "to": "queued",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$tool_retries",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "preparing",
+          "to": "review",
+          "actions": [
+            {
+              "action": "create",
+              "type": "critic-round",
+              "fields": {
+                "stage": "asset"
+              }
+            },
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "preparing",
+          "to": "queued",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$warped_clip_regeneration",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "review",
+          "to": "accepted",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "accepted"
+            },
+            {
+              "guard": "fields.present",
+              "fields": [
+                "concept_label",
+                "artifact",
+                "generation_ledger"
+              ]
+            },
+            "children.terminal"
+          ]
+        },
+        {
+          "from": "review",
+          "to": "queued",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "changes_requested"
+            }
+          ],
+          "limit": {
+            "max": "$warped_clip_regeneration",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "rejected"
+            }
+          ]
+        },
+        {
+          "from": "queued",
+          "to": "not-shipped",
+          "description": "No valid spending authority. Use the separate unavailable route for a failed required provider probe.",
+          "resolution": "budget-unavailable",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "tool_unavailable",
+              "is": false
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "stopped",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "stop_the_line"
+            }
+          ],
+          "resolution": "unverified"
+        },
+        {
+          "from": "queued",
+          "to": "unavailable",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "tool_unavailable",
+              "is": true
+            }
+          ]
+        },
+        {
+          "from": "generating",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "preparing",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "unavailable",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "guards": [
+            "outcome.present"
+          ]
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "on": {
+            "after": "$review_deadline"
+          },
+          "resolution": "unverified",
+          "description": "Kernel deadline for unavailable or stalled critic selection/review. No fabricated verdict; tick must remain live."
+        }
+      ]
+    },
+    "audio-license": {
+      "initial": "queued",
+      "states": {
+        "queued": {
+          "owner": "production-lead"
+        },
+        "acquiring": {
+          "owner": "audio-acquire"
+        },
+        "verify": {
+          "owner": "critic"
+        },
+        "accepted": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet",
+            "tool-unavailable",
+            "budget-unavailable",
+            "unverified"
+          ]
+        },
+        "stopped": {
+          "terminal": true,
+          "resolution": [
+            "unverified"
+          ]
+        },
+        "unavailable": {
+          "owner": "production-lead",
+          "description": "Record a required provider refusal, then finish tool-unavailable without a tool-state override."
+        }
+      },
+      "transitions": [
+        {
+          "from": "queued",
+          "to": "acquiring",
+          "risk": "spending",
+          "guards": [
+            {
+              "guard": "approvals",
+              "role": "brief-owner",
+              "min": 1
+            },
+            {
+              "guard": "fields.present",
+              "fields": [
+                "cost"
+              ]
+            }
+          ]
+        },
+        {
+          "from": "acquiring",
+          "to": "verify",
+          "actions": [
+            {
+              "action": "create",
+              "type": "critic-round",
+              "fields": {
+                "stage": "license"
+              }
+            },
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "acquiring",
+          "to": "queued",
+          "on": {
+            "event": "tool.failed"
+          },
+          "limit": {
+            "max": "$tool_retries",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "verify",
+          "to": "accepted",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "accepted"
+            },
+            {
+              "guard": "fields.present",
+              "fields": [
+                "license",
+                "attribution",
+                "artifact"
+              ]
+            },
+            "children.terminal"
+          ]
+        },
+        {
+          "from": "verify",
+          "to": "not-shipped",
+          "resolution": "unverified",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "rejected"
+            }
+          ]
+        },
+        {
+          "from": "queued",
+          "to": "not-shipped",
+          "description": "No valid spending authority. Use the separate unavailable route for a failed required provider probe.",
+          "resolution": "budget-unavailable",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "tool_unavailable",
+              "is": false
+            }
+          ]
+        },
+        {
+          "from": "verify",
+          "to": "stopped",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "stop_the_line"
+            }
+          ],
+          "resolution": "unverified"
+        },
+        {
+          "from": "verify",
+          "to": "queued",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "changes_requested"
+            }
+          ],
+          "limit": {
+            "max": "$tool_retries",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          }
+        },
+        {
+          "from": "queued",
+          "to": "unavailable",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "tool_unavailable",
+              "is": true
+            }
+          ]
+        },
+        {
+          "from": "acquiring",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "unavailable",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "guards": [
+            "outcome.present"
+          ]
+        },
+        {
+          "from": "verify",
+          "to": "not-shipped",
+          "on": {
+            "after": "$review_deadline"
+          },
+          "resolution": "unverified",
+          "description": "Kernel deadline for unavailable or stalled critic selection/review. No fabricated verdict; tick must remain live."
+        }
+      ]
+    },
+    "render-round": {
+      "initial": "recording",
+      "states": {
+        "recording": {
+          "owner": "production-lead",
+          "description": "Copy actual tool outcomes or critic report; never invent a score. Round records are append-only by skill rule, gap 8."
+        },
+        "recorded": {
+          "terminal": true
+        },
+        "failed": {
+          "terminal": true,
+          "resolution": [
+            "render-error"
+          ]
+        }
+      },
+      "transitions": [
+        {
+          "from": "recording",
+          "to": "recorded",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "artifact_sha256",
+                "measurements"
+              ]
+            },
+            "outcome.present"
+          ]
+        },
+        {
+          "from": "recording",
+          "to": "failed",
+          "guards": [
+            {
+              "guard": "field",
+              "name": "artifact_status",
+              "is": "not-produced"
+            },
+            {
+              "guard": "fields.present",
+              "fields": [
+                "measurements"
+              ]
+            },
+            "outcome.present"
+          ],
+          "resolution": "render-error",
+          "description": "Record a failed invocation without fabricating an artifact hash or zero measurements."
+        }
+      ]
+    },
+    "critic-record": {
+      "initial": "recording",
+      "states": {
+        "recording": {
+          "owner": "production-lead",
+          "description": "Copy actual tool outcomes or critic report; never invent a score. Round records are append-only by skill rule, gap 8."
+        },
+        "recorded": {
+          "terminal": true
+        }
+      },
+      "transitions": [
+        {
+          "from": "recording",
+          "to": "recorded",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "critic_run",
+                "artifact_sha256",
+                "report"
+              ]
+            },
+            "outcome.present",
+            {
+              "guard": "field",
+              "name": "lists_declared",
+              "is": true
+            }
+          ]
+        }
+      ]
+    },
+    "deliverable": {
+      "initial": "queued",
+      "states": {
+        "queued": {
+          "owner": "production-lead",
+          "clear_on_exit": [
+            "final_sheets_declared"
+          ]
+        },
+        "rendering": {
+          "owner": "final-render"
+        },
+        "music-only": {
+          "owner": "music-only"
+        },
+        "sheets": {
+          "owner": "contact-sheets"
+        },
+        "auditing": {
+          "owner": "delivery-audit"
+        },
+        "review": {
+          "owner": "critic"
+        },
+        "accepted": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet",
+            "tool-unavailable",
+            "budget-unavailable",
+            "unverified"
+          ]
+        },
+        "stopped": {
+          "terminal": true,
+          "resolution": [
+            "unverified"
+          ]
+        },
+        "metrics": {
+          "owner": "frozen-loudness",
+          "description": "Measure this decoded final-size candidate and its music-only variant; evidence is scoped to size and content digest."
+        },
+        "contrast": {
+          "owner": "contrast",
+          "description": "Measure this decoded final-size candidate and its music-only variant; evidence is scoped to size and content digest."
+        },
+        "colour": {
+          "owner": "brand-colour",
+          "description": "Measure this decoded final-size candidate and its music-only variant; evidence is scoped to size and content digest."
+        },
+        "determinism": {
+          "owner": "determinism",
+          "description": "Measure this decoded final-size candidate and its music-only variant; evidence is scoped to size and content digest."
+        },
+        "rework": {
+          "owner": "production-lead",
+          "description": "Source or final-size defect. Parent film detects this state and returns to rework. Hold exports until fresh full-film acceptance; rerun every size."
+        }
+      },
+      "transitions": [
+        {
+          "from": "queued",
+          "to": "rendering",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "size",
+                "accepted_render_digest"
+              ]
+            }
+          ]
+        },
+        {
+          "from": "rendering",
+          "to": "music-only",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "rendering",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "music-only",
+          "to": "sheets",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "music-only",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "sheets",
+          "to": "metrics",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "sheets",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "auditing",
+          "to": "review",
+          "actions": [
+            {
+              "action": "create",
+              "type": "critic-round",
+              "fields": {
+                "stage": "final"
+              }
+            },
+            "spawn.owner"
+          ],
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "auditing",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "review",
+          "to": "accepted",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "accepted"
+            },
+            "children.terminal",
+            {
+              "guard": "fields.present",
+              "fields": [
+                "master",
+                "music_only",
+                "poster",
+                "audit",
+                "measurements"
+              ]
+            },
+            {
+              "guard": "field",
+              "name": "final_sheets_declared",
+              "is": true
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "rework",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "changes_requested"
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "resolution": "quality-unmet",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "rejected"
+            }
+          ]
+        },
+        {
+          "from": "review",
+          "to": "stopped",
+          "guards": [
+            {
+              "guard": "verdict",
+              "is": "stop_the_line"
+            }
+          ],
+          "resolution": "unverified"
+        },
+        {
+          "from": "metrics",
+          "to": "contrast",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "metrics",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "contrast",
+          "to": "colour",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "contrast",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "colour",
+          "to": "determinism",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "colour",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "determinism",
+          "to": "auditing",
+          "on": {
+            "event": "tool.passed"
+          }
+        },
+        {
+          "from": "determinism",
+          "to": "rework",
+          "on": {
+            "event": "tool.failed"
+          }
+        },
+        {
+          "from": "rework",
+          "to": "queued",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "size",
+                "accepted_render_digest"
+              ]
+            },
+            "outcome.present"
+          ],
+          "limit": {
+            "max": "$export_rework",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "description": "Lead confirms that the parent film has fresh accepted sources and updates accepted_render_digest. Re-render and remeasure; presence alone cannot prove freshness (gaps 1 and 7)."
+        },
+        {
+          "from": "accepted",
+          "to": "rework",
+          "reopen": true,
+          "description": "Lead invalidates all final sizes after a source fix, including sizes that had passed. Preserve old reports; reuse the size element with a new candidate."
+        },
+        {
+          "from": "queued",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state."
+        },
+        {
+          "from": "rework",
+          "to": "not-shipped",
+          "resolution": "tool-unavailable",
+          "description": "The lead records the refused entry or failed probe and stops without overriding a tool state."
+        },
+        {
+          "from": "rendering",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT3H1M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "music-only",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "sheets",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "auditing",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "metrics",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "contrast",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "colour",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "determinism",
+          "to": "not-shipped",
+          "on": {
+            "after": "PT21M"
+          },
+          "resolution": "tool-unavailable",
+          "description": "Kernel deadline fallback if no usable next state/result follows the binding timeout, including a refused downstream tool entry. This is not a lead override; tick/executor supervision must be available."
+        },
+        {
+          "from": "review",
+          "to": "not-shipped",
+          "on": {
+            "after": "$review_deadline"
+          },
+          "resolution": "unverified",
+          "description": "Kernel deadline for unavailable or stalled critic selection/review. No fabricated verdict; tick must remain live."
+        }
+      ]
+    },
+    "section": {
+      "initial": "queued",
+      "states": {
+        "queued": {
+          "owner": "production-lead",
+          "description": "Assign the section composition ids, accepted shared inputs and asset blockers before spawning."
+        },
+        "building": {
+          "owner": "scene-builder",
+          "description": "One section run builds the scene sources and reports results. Descendant board writes require gap 11; kernel alone runs tool states, and the lead can route their declared exits."
+        },
+        "joining": {
+          "owner": "production-lead",
+          "clear_on_exit": [
+            "components_ok"
+          ]
+        },
+        "accepted": {
+          "terminal": true
+        },
+        "not-shipped": {
+          "terminal": true,
+          "resolution": [
+            "quality-unmet"
+          ]
+        },
+        "fixing": {
+          "owner": "scene-builder",
+          "description": "Replacement section run repairs reopened scene sources. Descendant element authority remains gap 11; no extra builder spawns."
+        }
+      },
+      "transitions": [
+        {
+          "from": "queued",
+          "to": "building",
+          "guards": [
+            {
+              "guard": "fields.present",
+              "fields": [
+                "shared_input_digest"
+              ]
+            },
+            "blockers.clear",
+            {
+              "guard": "field",
+              "name": "compositions_declared",
+              "is": true
+            }
+          ],
+          "actions": [
+            {
+              "action": "create",
+              "type": "scene",
+              "per": "compositions",
+              "fields": {
+                "composition_id": "$item"
+              }
+            },
+            "spawn.owner"
+          ]
+        },
+        {
+          "from": "building",
+          "to": "joining",
+          "guards": [
+            "outcome.present"
+          ]
+        },
+        {
+          "from": "joining",
+          "to": "accepted",
+          "guards": [
+            "children.terminal",
+            {
+              "guard": "field",
+              "name": "components_ok",
+              "is": true
+            },
+            {
+              "guard": "fields.present",
+              "fields": [
+                "report"
+              ]
+            }
+          ]
+        },
+        {
+          "from": "joining",
+          "to": "not-shipped",
+          "guards": [
+            {
+              "guard": "children.any-in",
+              "states": [
+                "not-shipped",
+                "stopped"
+              ]
+            }
+          ],
+          "resolution": "quality-unmet"
+        },
+        {
+          "from": "accepted",
+          "to": "fixing",
+          "reopen": true,
+          "limit": {
+            "max": "$scene_rework",
+            "then": "not-shipped",
+            "resolution": "quality-unmet"
+          },
+          "description": "Reopen the section when a scene is reopened after a seam or full-film finding. A new section builder works the existing scene children, then the join verifies fresh acceptance.",
+          "actions": [
+            "spawn.owner"
+          ]
+        },
+        {
+          "from": "fixing",
+          "to": "joining",
+          "guards": [
+            "outcome.present"
+          ]
+        }
+      ]
+    }
+  },
+  "policy": {
+    "review": {
+      "default": "required"
+    },
+    "goals": {
+      "orchestrator_goal": "film"
+    },
+    "wip": {
+      "per_state": {
+        "film.rendering": "$render_wip",
+        "scene.rendering": "$render_wip",
+        "deliverable.rendering": "$render_wip",
+        "section.building": "$builder_wip",
+        "section.fixing": "$builder_wip"
+      },
+      "description": "Per-state limits do not share a machine semaphore. Real named resource leases belong to PC3 §6.11.2 and private runtimes.toml."
+    }
+  },
+  "x-pc3": {
+    "status": "PROPOSAL ONLY. The kernel ignores every x- key below.",
+    "files": {
+      "gap": 1,
+      "facts": {
+        "type": "file",
+        "field": "film.facts_file",
+        "inputs": "Pin content before planning; every claim references a facts entry. Reopen dependents on supersession."
+      },
+      "artifact_part_sets": "Complete native frame set with digests; never encode a partial set.",
+      "input_graph": [
+        {
+          "made": "storyboard",
+          "from": [
+            "film.facts_file",
+            "film.style_references",
+            "reference.study"
+          ],
+          "pin": "content digests at acceptance"
+        },
+        {
+          "made": "shared-kit",
+          "from": [
+            "storyboard.table",
+            "film.brand",
+            "film.facts_file"
+          ],
+          "pin": "content digests at acceptance"
+        },
+        {
+          "made": "scene",
+          "from": [
+            "shared-kit.tokens",
+            "shared-kit.handoff_pixels",
+            "storyboard.table",
+            "film.facts_file",
+            "accepted support assets"
+          ],
+          "pin": "content digests at acceptance"
+        },
+        {
+          "made": "audio-piece",
+          "from": [
+            "storyboard.beat_grid",
+            "accepted audio licenses"
+          ],
+          "pin": "content digests at acceptance"
+        },
+        {
+          "made": "render-round",
+          "from": [
+            "accepted scene sources",
+            "audio-piece.mix",
+            "film.facts_file"
+          ],
+          "pin": "content digests at invocation"
+        },
+        {
+          "made": "deliverable",
+          "from": [
+            "accepted full-render candidate",
+            "film.facts_file"
+          ],
+          "pin": "content digests at final-tier invocation"
+        }
+      ],
+      "input_graph_note": "Illustrative dependency selectors only; the adopted inputs/ref-field grammar must come from §5.5. No existing kernel guard reads these paths. A facts change invalidates all downstream wording and render evidence."
+    },
+    "tool_outputs": {
+      "gap": 2,
+      "fields": "Kernel-written typed metrics, artifact digests and receipts; reconcile actual charge against delegation budget."
+    },
+    "resources": {
+      "gap": 3,
+      "render": 1,
+      "analysis": 1,
+      "executes": "element-content",
+      "sandbox": "No network or credentials in scene renderer; writes to invocation artifacts only."
+    },
+    "quality_params": {
+      "gap": 4,
+      "frozen_s_per_30_s": 1.0,
+      "max_still_s": 0.5,
+      "frame_diff_threshold": 0.35,
+      "contrast_min": 4.5,
+      "brand_rgb_tolerance": 3,
+      "target_lufs": -16,
+      "lufs_tolerance": 1,
+      "true_peak_max_dbfs": -1,
+      "sfx_peak_over_music_max_db": 0,
+      "in_band_lift_target_db": 3.5,
+      "high_band_lift_max_db": 4,
+      "fps": 60,
+      "landscape_width": 1920,
+      "landscape_height": 1080,
+      "portrait_width": 1080,
+      "portrait_height": 1920,
+      "loudness_style": "calm",
+      "punchy_target_lufs": -14,
+      "frame_diff_basis": {
+        "fps": 10,
+        "width": 320,
+        "metric": "YAVG of tblend difference",
+        "use": "Diagnostic only; frame_diff_threshold=0.35 must not be reused for adjacent native 60 fps frames."
+      },
+      "native_frame_diff_threshold": null
+    },
+    "review_findings": {
+      "gap": 5,
+      "shape": [
+        "where",
+        "problem",
+        "fix",
+        "severity",
+        "prior_status",
+        "unverified"
+      ]
+    },
+    "critic_launch": {
+      "gap": 6,
+      "new_run_each_round": true,
+      "allowed_inputs": {
+        "round_1": [
+          "candidate artifact",
+          "brief including facts",
+          "references"
+        ],
+        "round_2_onward": [
+          "candidate artifact",
+          "brief including facts",
+          "references",
+          "previous critic report"
+        ]
+      },
+      "excluded_inputs": [
+        "builder claims",
+        "builder session history",
+        "builder reasoning or fix list",
+        "changes ledger",
+        "kernel measurement reports"
+      ],
+      "method": "Judge blind first, then mark every prior finding FIXED / PARTLY / STILL PRESENT and hunt new regressions. This is a role rule now; a sealed first phase is optional future enforcement.",
+      "measurement_sandbox": "Local shell, ffmpeg and kit diagnostics; candidate inputs and scratch outputs only, no builder files, credentials or network.",
+      "post_review_comparison": "Lead compares the independently recorded critic numbers with kernel reports afterwards in critic-round.kernel_comparison and the film ledger; neither comparison nor kernel reports enter verification packets."
+    },
+    "check_sets": {
+      "gap": 7,
+      "measured": [
+        "motion-test",
+        "motion-frozen",
+        "motion-contrast",
+        "motion-brand",
+        "motion-audio",
+        "motion-determinism",
+        "motion-seams",
+        "motion-exports"
+      ],
+      "critic_owned": [
+        "frame-one-finished",
+        "sound-off-comprehension",
+        "reference-strength",
+        "truth",
+        "visual-audio-quality"
+      ],
+      "note": "§6.12 cannot gate an artifact without a Change Request. Proposed artifact digest and tier binding; never use inline-passing delivery.checks-passed as proof."
+    }
+  }
+}
